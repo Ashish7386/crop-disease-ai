@@ -54,11 +54,14 @@ GET /health
 
 ## Deployment
 
-- Frontend: ChatGPT Site during development; Vercel remains compatible with the Vite output.
-- API: Dockerized FastAPI service suitable for Render.
+- Frontend: https://crop-disease-ai-psi.vercel.app (Git-linked production deployment).
+- API: https://crop-disease-ai-api.onrender.com (live FastAPI service; `/health` reports model readiness).
+- Private source: `Ashish7386/crop-disease-ai` on GitHub.
 - Weather: Open-Meteo current conditions.
 - Translation and speech: Azure Translator and Azure AI Speech, using server-side credentials.
 - History: browser `localStorage`; no account or database.
+
+The deployed API is intentionally not prediction-ready until reviewed model and label artifacts are installed. The production frontend is connected to this API and surfaces that unavailable state instead of inventing a result.
 
 ## Privacy
 
