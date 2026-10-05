@@ -15,6 +15,10 @@
 - Language selection and server-generated speech controls, including immediate Stop.
 - FastAPI backend contract, image decoding, filename-independent pixel preprocessing, basic photo-quality rejection, model threshold handling, weather integration, Azure translation, and Azure speech.
 - Docker packaging for the API.
+- Private GitHub source repository with generated files, local secrets, caches, and unreviewed model binaries excluded.
+- Git-linked Vercel production frontend with direct-route fallback verified for every application page.
+- Render FastAPI service deployed in Singapore with automatic deploys from `main`.
+- Production frontend configured with the deployed API origin.
 
 ## Scientific gates before the application can claim real production analysis
 
@@ -29,5 +33,7 @@
 ## Current deliberate behavior
 
 When the model files are absent, the API returns HTTP 503 and states that no prediction was generated. When a candidate class is returned without the reviewed information and severity layers, the API also refuses to construct an incomplete disease report.
+
+The hosted API process and `/health` endpoint are live. Model readiness remains false until the scientific gates above are completed.
 
 This behavior prevents the polished interface from being mistaken for a completed AI system.
