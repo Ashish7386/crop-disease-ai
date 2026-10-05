@@ -20,6 +20,7 @@ from typing import Iterable
 import numpy as np
 import torch
 from datasets import Dataset, DatasetDict, load_dataset
+from huggingface_hub import hf_hub_download
 from PIL import Image
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score
 from sklearn.model_selection import StratifiedGroupKFold
@@ -312,7 +313,15 @@ def main() -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using {device}")
 
-    data: DatasetDict = load_dataset("mohanty/PlantVillage", "color")
+    # Datasets 4.x no longer executes Hub dataset scripts, and the repository's
+    # mixed-case name prevents automatic discovery of plant_village.py. Fetch
+    # the reviewed loader explicitly so image, label, and leaf_id are preserved.
+    loader_path = hf_hub_download(
+        repo_id="mohanty/PlantVillage",
+        filename="plant_village.py",
+        repo_type="dataset",
+    )
+    data: DatasetDict = load_dataset(loader_path, "default", trust_remote_code=True)
     source_train = data["train"]
     source_test = data["test"]
     label_feature = source_train.features["label"]
@@ -424,4 +433,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
